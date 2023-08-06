@@ -1,2 +1,2 @@
 ## Django Five Project
-- django prject
+- django project
