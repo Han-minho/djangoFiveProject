@@ -28,7 +28,9 @@ class Product(models.Model):
     slug = models.SlugField(max_length=200, allow_unicode=True)
     image = models.ImageField(upload_to='products/%y/%m/%d', blank=True)
     description = models.TextField(blank=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    # 한국용 버전으로 아래를 씀(decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=0)
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
