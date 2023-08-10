@@ -13,6 +13,12 @@
             </a>
         </h2>
         <p class="price">{{ product.price }}원</p>
-        {{ product.description|linebreaks }}
+        <form action="{% url 'cart:cart_add' product.id %}" method="post">
+            수량: {{ cart_product_form.quantity }}
+            {% csrf_token %}
+            {{ product.description|linebreaks }}
+            <input type="submit" value="추가하기">
+        </form>
+        {{ linebreaks }}
     </div>
 {% endblock content %}

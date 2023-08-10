@@ -1,0 +1,60 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}
+    Your Menu List
+{% endblock title %}
+{% block content %}
+    <h1>your menu List</h1>
+    <table class="cart">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Remove</th>
+                <th>Unit price</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in cart %}
+            {% with product=item.product %}
+            <tr>
+                <td>
+                    <a href="{{ product.get_absolute_url }}">
+                        <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" alt="">
+                    </a>
+                </td>
+                <td>{{ product.name }}</td>
+            <!--<td>{{ item.quantity }}</td>-->
+                <td>
+                    <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                        {{ item.update_quantity_form.quantity }}
+                        {{ item.update_quantity_from.override }}
+                        <input type="submit" value="수정">
+                        {% csrf_token %}
+                    </form>
+                </td>
+                <td>
+                    <form action="{% url 'cart:cart_remove' product.id %}" method="post">
+                        <input type="submit" value="취소">
+                        {% csrf_token %}
+                    </form>
+                </td>
+                <td class="num">{{ item.price }}원</td>
+                <td class="num">{{ item.total_price }}원</td>
+            </tr>
+            {% endwith %}
+        {% endfor %}
+        <tr class="total">
+            <td>Total</td>
+            <td colspan="4"></td>
+            <td class="num">{{ cart.get_total_price }}원</td>
+        </tr>
+        </tbody>
+    </table>
+    <p class="text-right">
+        <a href="{% url 'shop:product_list' %}" class="button light">쇼핑 계속하기</a>
+        <a href="#" class="button">계산하기</a>
+    </p>
+{% endblock content %}
