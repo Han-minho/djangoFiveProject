@@ -12,8 +12,21 @@
             <a href="/" class="logo">Coffee Shop</a>
         </div>
         <div id="subheader">
+<!--            <div class="cart">-->
+<!--                Your cart is empty.-->
+<!--            </div>-->
             <div class="cart">
-                Your cart is empty.
+                {% with total_items=cart|length %}
+                    {% if total_items > 0 %}
+                        주문 목록:
+                        <a href="{% url 'cart:cart_detail' %}">
+                            {{ total_items }} items{{ total_items|pluralize }},
+                            {{ cart.get_total_price }}
+                        </a>
+                    {% else %}
+                        주문 목록 없음
+                    {% endif %}
+                {% endwith %}
             </div>
         </div>
         <div id="content">
