@@ -1,0 +1,24 @@
+{% extends "shop/base.html" %}
+{% block title %}주문 확인{% endblock title %}
+{% block content %}
+    <h1>주문하기</h1>
+    <div class="order-info">
+        <h3>주문 내용</h3>
+        <ul>
+            {% for item in cart %}
+                <li>
+                    {{ item.product.name }} x {{ item.product.quantity }}
+                    <span>{{ item.total_price }}원</span>
+                </li>
+            {% endfor %}
+        </ul>
+        <p>총금액 : {{ cart.get_total_price }}원</p>
+    </div>
+    <form method="post" class="order-item">
+        {{ form.as_p }}
+        <p>
+            <input type="submit" value="주문하기">
+        </p>
+        {% csrf_token %}
+    </form>
+{% endblock content %}

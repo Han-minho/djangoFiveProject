@@ -1,0 +1,9 @@
+{% extends "shop/base.html" %}
+{% block title %}주문완료{% endblock title %}
+{% block content %}
+    <h1>주문내용</h1>
+    <p>
+        당신의 주문이 성공적으로 주문 되었습니다.<br>
+        <strong>{{ order.id }}. {{ order.name }}님</strong>
+    </p>
+{% endblock content %}
